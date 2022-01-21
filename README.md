@@ -1,10 +1,29 @@
-# Palm für Azüre
+# Palm für Azure
 
-Das Repo hier ist meine jetztige Sammlung an Skripten, mit denen ich versurche, PALM auf Azure aufzusetzen.
+Das Repo hier ist eine Sammlung an Skripten, mit denen wir testen ob PALM effizient und sicher in Azure verwendet werden kann.
+Zusätzlich zum Aufsetzen von PALM vom lokalen Rechner aus besteht die Möglichkeit sich auf den Azure-VMs per ssh einzuloggen und direkt dort PALM zu starten und Parameteränderungen auszuprobieren. So muss nicht immer eine neue Maschine erstellt werden.
 
-Das ganze ist zweigeteilt:
-* Skripte, die die Umgebung in Azure aufbauen, und dann PALM anwerfen. Diese befinden sich im Ordner "01_start_pool_and_palm"
-* Skripte, die auf den Azure Machinen ausgeführt werden, zum einen "startup"-Tasks, als auch das finale Skript für die Simulation
+Es ist zu beachten dass die Maschinen Geld kosten, wenn man sie nicht manuell wieder frei gibt.
+
+Die Skripte sind zweigeteilt:
+
+ * lokale Skripte, die auf dem lokalen Rechner aufgerufen werden und Azure-Cli verwenden.
+ * VM Skripte, die auf den Azure Machinen ausgeführt werden.
+
+Die _lokalen Skripte_ befinden sich im Ordner `azure_cli_scripts`. Sie bauen die Umgebung in Azure auf:
+
+ * Account
+ * Netzwerk
+ * Shared Storage
+ * Pool
+ * Starten von Jobs, u.a. PALM.
+
+Die _VM Skripte_ befinden sich im Ordner `vm_scripts`. Sie laufen direkt in der VM:
+
+ * Update and Upgrade VM
+ * Install missing Software
+ * Compile and install PALM
+ * Start PALM simulations
 
 ## Manuelle Anpassungen
 Wir sind jetzt im Laufe der Übergabe noch auf ein paar Dinge gestoßen:

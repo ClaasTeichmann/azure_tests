@@ -31,3 +31,4 @@ override.tf.json
 # example: *tfplan*
 variables.sh
 *.json
+README.md.backup
