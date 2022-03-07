@@ -66,7 +66,7 @@ Erstellt zuerst eine ${pool_id}.json Datei, mit dieser wird dann der Pool erstel
 Wichtig sind hier insbesondere:
 * Die Start-Task, was also passiert, wenn die Maschienen hochgefahren, bzw neu gestartet werden. Hier wird das Skript "startup_tasks.sh" ausgeführt. Das aktualisiert Ubuntu und installiert PALM dann im Verzeichnis "/palmbase/palm/"
 * Die Einstellungen:
-    * "maxTasksPerNode": 2,
+    * "maxTasksPerNode": 1,
     * "taskSchedulingPolicy": {
         "nodeFillType": "Pack"
        }
