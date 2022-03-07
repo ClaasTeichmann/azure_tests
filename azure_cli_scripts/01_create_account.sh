@@ -7,7 +7,7 @@ source variables.sh
 # must be configured with a Key Vault located in the same region. 
 az keyvault create --resource-group $batch_rg --name ${batch_account_name}${keyvault_extension} --location $region --enabled-for-deployment true --enabled-for-disk-encryption true --enabled-for-template-deployment true
 
-# Dieser Befehl hier schläft meines Wissens nach fehl, dafür hab ich keine Rechte
+# Create a new keyvault (in case it doesn't work, it might be due to missing permissions).
 az keyvault set-policy --resource-group $batch_rg --name ${batch_account_name}${keyvault_extension} --spn ddbf3205-c6bd-46ae-8127-60eb93363864 --secret-permissions backup delete get list purge recover restore set --key-permissions backup create decrypt delete encrypt get import list purge recover restore sign unwrapKey update verify wrapKey
 
 # Add a storage account reference to the Batch account for use as 'auto-storage'
@@ -24,13 +24,11 @@ az storage container create --name batch --account-name $storage_account_name --
 # Create the Batch account, referencing the Key Vault either by name (if they
 # exist in the same resource group) or by its full resource ID.
 
-
-# Das hier schlaegt auch Fehl, allerdings existiert ja schon ein BatchAccount, daher auch auskommentiert!
-# az batch account create --resource-group $batch_rg --name $batch_account_name --location $region --keyvault ${batch_account_name}${keyvault_extension} --storage-account $storage_account_name --identity-type SystemAssigned
+# In case you don't have a batch account yet, please execute the following command to create one:
+#     az batch account create --resource-group $batch_rg --name $batch_account_name --location $region --keyvault ${batch_account_name}${keyvault_extension} --storage-account $storage_account_name --identity-type SystemAssigned
 
 
 # Authenticate directly against the account for further CLI interaction.
 # Batch accounts that allocate pools in the user's subscription must be
 # authenticated via an Azure Active Directory token.
-# Das hier funktioniert!
 az batch account login -g $batch_rg -n $batch_account_name
