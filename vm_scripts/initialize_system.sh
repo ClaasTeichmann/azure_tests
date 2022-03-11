@@ -20,4 +20,6 @@ chown _azbatch:_azbatchgrp /home/_azbatch/.bash_aliases
 
 echo "Initialization complete!"
 
+echo "Rebooting"
+sudo systemctl reboot now
 

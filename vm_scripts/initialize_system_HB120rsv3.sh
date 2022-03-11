@@ -11,6 +11,8 @@ cat << EOF >  /home/_azbatch/.bash_aliases
 #CXXFLAGS="${CFLAGS}"
 #CPPFLAGS="${CFLAGS}"
 
+export TARGET_BASE_PATH=/mnt/batch/tasks/fsmounts/shared/palmbase/palm_HB120rsv3
+
 export PATH=/mnt/batch/tasks/fsmounts/shared/palmbase/palm_HB120rsv3/current_version/bin:${PATH}
 EOF
 chown _azbatch:_azbatchgrp /home/_azbatch/.bash_aliases
@@ -18,4 +20,6 @@ chown _azbatch:_azbatchgrp /home/_azbatch/.bash_aliases
 
 echo "Initialization complete!"
 
+echo "Rebooting"
+sudo systemctl reboot now
 
