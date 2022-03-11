@@ -11,7 +11,7 @@ cat << EOF >  palm_compile.json
 {
     "id": "$task_id",
     "displayName": "$job_id",
-    "commandLine": "/bin/bash -c '/mnt/batch/tasks/fsmounts/shared/tasks/compile_palm_${VM_TYPE}.sh'",
+    "commandLine": "/bin/bash -c '/mnt/batch/tasks/fsmounts/shared/vm_scripts/compile_palm_${VM_TYPE}.sh'",
     "resourceFiles": [],
     "environmentSettings": [
       {

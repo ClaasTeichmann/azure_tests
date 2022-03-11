@@ -62,7 +62,7 @@ cat << EOF >  ${pool_id}.json
       }
   ],
   "startTask": {
-    "commandLine": "sudo bash -x /mnt/batch/tasks/fsmounts/shared/tasks/initialize_system.sh",
+    "commandLine": "sudo bash -x /mnt/batch/tasks/fsmounts/shared/vm_scripts/initialize_system.sh",
     "userIdentity": {
       "autoUser": {
         "scope": "pool",

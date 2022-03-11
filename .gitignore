@@ -32,3 +32,4 @@ override.tf.json
 variables.sh
 *.json
 README.md.backup
+vm_dot_ssh
