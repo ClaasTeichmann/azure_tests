@@ -1,21 +1,17 @@
 #!/bin/bash -x
 
-# Variables
-source variables.sh
-
-export simulation_id="007"
-export try_id="002"
+export run_id="006"
 
 # Create task to create the application zip file
-export task_id="palm-sim-task-${simulation_id}-${try_id}"
-export job_id="palm-sim-${simulation_id}"
+export task_id="palm-compile-task-${run_id}"
+export job_id="palm-compile-${run_id}"
 
 
-cat << EOF >  palm_run.json
+cat << EOF >  palm_compile.json
 {
     "id": "$task_id",
     "displayName": "$job_id",
-    "commandLine": "/bin/bash -c '/mnt/batch/tasks/fsmounts/shared/tasks/run_example_cbl.sh'",
+    "commandLine": "/bin/bash -c '/mnt/batch/tasks/fsmounts/shared/tasks/compile_palm_${VM_TYPE}.sh'",
     "resourceFiles": [],
     "environmentSettings": [
       {
@@ -24,7 +20,7 @@ cat << EOF >  palm_run.json
       },
       {
         "name": "PPN",
-        "value": "1"
+        "value": "2"
       }
     ],
     "constraints": {
@@ -46,18 +42,13 @@ cat << EOF >  palm_run.json
   }
 EOF
 
-# Create job to create the application package
+# Create job to create the application packahe
 az batch job create --id ${job_id} --pool-id ${pool_id}
 
 # Create a task within the job
-az batch task create --task-id ${task_id} --job-id ${job_id} --json-file palm_run.json
+az batch task create --task-id ${task_id} --job-id ${job_id} --json-file palm_compile.json
 
 # az batch job delete --job-id ${job_id}
-
-
-    # --command-line "/bin/bash -c 'wget -L https://raw.githubusercontent.com/SebaStad/azure_tests/main/palm_tests_palm_installed.sh;chmod u+x palm_tests_palm_installed.sh;./palm_tests_palm_installed.sh'"
-    # --command-line "/bin/bash -c 'wget -L https://raw.githubusercontent.com/SebaStad/azure_tests/main/palm_tests_palm_installed.sh;chmod u+x palm_tests_palm_installed.sh;./palm_tests_palm_installed.sh'"
-    #    --command-line "/bin/bash -c 'wget -L https://raw.githubusercontent.com/kaneuffe/azure-batch-workshop/main/create_palm.sh;chmod u+x create_app_zip.sh;./create_app_zip.sh'"
 
 # Wait for the task to finish
 state=$(az batch task show --job-id ${job_id} --task-id ${task_id} --query 'state')

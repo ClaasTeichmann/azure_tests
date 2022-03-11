@@ -1,7 +1,5 @@
 #!/bin/bash -x
 
-source variables.sh
-
 # Create a VNET
 # Beim ersten Mal: "Microsoft.Network" not registered; passiert dann beim ersten Mal; dauert en Moment
 az network vnet create \
@@ -23,6 +21,7 @@ az network nsg create \
 # Bzgl public ip / zugriff von aussen
 
 # 1. ssh zugriff
+# This is just for testing purposes and will not be available in production mode
 az network nsg rule create \
   --resource-group $batch_rg \
   --nsg-name compute-nsg \
@@ -54,6 +53,7 @@ az network nsg rule create \
 
 # Verbietet zugriff für alle anderen auf den ports 29876...
 # Die zwei Regeln fallen in zukunft evtl weg;
+# FIXME: Hier gibt es einen Hinweis im Azure-Portal
 az network nsg rule create \
   --resource-group $batch_rg \
   --nsg-name compute-nsg \
@@ -68,7 +68,7 @@ az network nsg rule create \
   --destination-port-range "29876-29877"
 
 # Create a subnet with service endpoints
-# Subnetz auch erst danach zuweisen, damit des die gleichen Regeln hat
+# Subnetz auch erst danach zuweisen, damit es die gleichen Regeln hat
 az network vnet subnet create \
   --name $compute_subnet_name \
   --resource-group $batch_rg \

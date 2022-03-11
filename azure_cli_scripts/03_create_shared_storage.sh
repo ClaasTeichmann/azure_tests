@@ -1,6 +1,4 @@
-#!/bin/bash
-
-source variables.sh
+#!/bin/bash -x
 
 az storage account create \
     --resource-group $batch_rg \
@@ -37,9 +35,15 @@ az storage share-rm create \
 
 # Platte ist im Portal 
 # Workgroup -> Storagename -> Dateifreigabe (links)
+# Data storage -> File shares -> shared
 # Da sieht man, wie man die Platte auf Linux z.b. mounten wuerde
 
-# jetzt:
-# batchaccoutn da
-# storage ist da
-# jetzt: Pool (kostet geld :)
+## Mount under Ubuntu:
+
+# sudo apt-get -y update
+# sudo apt-get install nfs-common
+
+# sudo mkdir -p /mount/batchctnfssa/shared
+# sudo mount -t nfs batchctnfssa.file.core.windows.net:/batchctnfssa/shared /mount/batchctnfssa/shared -o vers=4,minorversion=1,sec=sys
+
+# For testing purposes, the storage can be mounted via sshfs
